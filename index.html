@@ -1,7 +1,7 @@
 <!doctype>
 <html>
 <head>
-  <title>Intuitive Interactive Bayes' Theorem Visualization</title>
+  <title>I got medical test results. Am I sick?</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css">
@@ -11,77 +11,50 @@
 </head>
 
 <body class="container">
-  <h1>Intuitive Interactive Bayes' Theorem Visualization</h1>
-  <p>
-    This page was created to give you a visual intuition about how Bayes' Theorem works.
-    If you don't know what Bayes' Theorem is or why it's important I recommend
-    <a href="https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal">
-      this article
-    </a> or <a href="https://www.youtube.com/watch?v=BrK7X_XlGB8">this video</a>. In the diagrams
-    below, you can adjust the probabilities shown by clicking and dragging. Any changes you
-    make in each step will show up in the subsequent steps.
-  </p>
-  <p>
-    Here is the formula for Bayes' Theorem:
-    <img src="bayes.png" class="formula"/>
-  </p>
+  <h2>I got medical test results. Am I sick?</h2>
   <ol>
     <li>
       <p>
-        Start with a sample space <b>S</b> of all possible events.
+        <h3> Rouph priors. </h3>
+        Before the test how likely were you to be sick?
+        Do you have symptoms or did you contact with a sick person?
       </p>
-      <div class="box-container box js-resize">
-        <div class="box-label">S</div>
-        100%
-      </div>
-    </li>
-    <li>
-      <p>
-        Divide the sample space vertically for some number of mutually exclusive events
-        <b>H1, H2, H3</b>… The probability assigned to any event
-        <b>H</b> is called a "prior". You can think of this as your model of the world before seeing any evidence.
-        Percentages shown represent <b>P(H)</b>.
-      </p>    
-      <button id="addPrior">Add Prior</button>
-      <button id="removePrior">Remove Prior</button>
       <div class="box-container js-resize" id="priors">
         <div class="split split-vertical box" data-id="0">
-          <div class="box-label">H1</div>
+          <div class="box-label">Healthy</div>
           <span class="percent">50%</span>
         </div>
         <div class="split split-vertical box" data-id="1">
-          <div class="box-label">H2</div>
+          <div class="box-label">Sick</div>
           <span class="percent">50%</span>
         </div>
       </div>
     </li>
     <li>
       <p>
-        For each vertical slice, divide space horizontally for some number of mutually exclusive events
-        <b>E1, E2, E3</b>… You can think of these events as possible outcomes that would be evidence for one of your priors.
-        Percentages shown represent <b>P(E|H)</b>.
+        <h3> Test properties. </h3>
+        Search scientific studies for your test.
+        Find sensitivity and specificity and adjust sliders below.
       </p>
       <div>
-        <button id="addEvidence">Add Evidence</button>
-        <button id="removeEvidence">Remove Evidence</button>
         <div class="box-container js-resize" id="evidence">
           <div class="pane" data-id="0">
             <div class="split split-horizontal box" data-id="0">
-              <div class="box-label">E1</div>
+              <div class="box-label">specificity(true negatives)</div>
               <span class="percent">50%</span>
             </div>
             <div class="split split-horizontal box" data-id="1">
-              <div class="box-label">E2</div>
+              <div class="box-label">false positives</div>
               <span class="percent">50%</span>
             </div>
           </div>
           <div class="pane" data-id="1">
             <div class="split split-horizontal box" data-id="0">
-              <div class="box-label">E1</div>
+              <div class="box-label">false negatives</div>
               <span class="percent">50%</span>
             </div>
             <div class="split split-horizontal box" data-id="1">
-              <div class="box-label">E2</div>
+              <div class="box-label">sensitivity(true positives)</div>
               <span class="percent">50%</span>
             </div>
           </div>
@@ -90,41 +63,37 @@
     </li>
     <li>
       <p>
-        Once a particular event
-        <b>E</b> is observed, you can discard all other events
-        <b>E</b>
-        that were not observed. What remains are your posterior probabilities. You can think of this as your updated model of the
-        world after seeing evidence. Percentages shown represent <b>P(H|E)</b>.
+        <h3> Conclusion </h3>
       </p>
       <div class="observed-container">
         <div>
-          Observed Event:
+          Test results:
           <span id="observed-radio">
             <label class="radio-option">
-              <input type="radio" name="observed" data-label="E1" data-id="0" checked/>E1
+              <input type="radio" name="observed" data-label="Negative" data-id="0" checked/>Negative
             </label>
             <label class="radio-option">
-              <input type="radio" name="observed" data-label="E2" data-id="1"/>E2
+              <input type="radio" name="observed" data-label="Positive" data-id="1"/>Positive
             </label>
           </span>
           <div class="box-container js-resize" id="observed">
             <div class="pane" data-id="0">
               <div class="box pane-v observed" data-id="0">
-                <div class="box-label">E1</div>
+                <div class="box-label">true negatives</div>
                 <span class="percent">50%</span>
               </div>
               <div class="box pane-v" data-id="1">
-                <div class="box-label">E2</div>
+                <div class="box-label">false positives</div>
                 <span class="percent">50%</span>
               </div>
             </div>
             <div class="pane" data-id="1">
               <div class="box pane-v observed" data-id="0">
-                <div class="box-label">E1</div>
+                <div class="box-label">false negatives</div>
                 <span class="percent">50%</span>
               </div>
               <div class="box pane-v" data-id="1">
-                <div class="box-label">E2</div>
+                <div class="box-label">true positives</div>
                 <span class="percent">50%</span>
               </div>
             </div>
@@ -137,17 +106,19 @@
           <br/>
           <div class="box-container js-resize" id="posterior">
             <div class="box pane" data-id="0">
-              <div class="box-label">H1</div>
+              <div class="box-label">Healthy</div>
               <span class="percent">50%</span>
             </div>
             <div class="box pane" data-id="1">
-              <div class="box-label">H2</div>
+              <div class="box-label">Sick</div>
               <span class="percent">50%</span>
             </div>
           </div>
         </div>
       </div>
     </li>
+
+    <footer>This page employes <a href="https://allenkim67.github.io/bayes-demo/">Bayes Theorem</a> to help you interpret medical test results. <a href="https://github.com/Romex91/sick-or-healthy"></a></footer>
   </ol>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
